@@ -1,0 +1,95 @@
+{% extends "layout.html"%}
+
+{% block content %}
+<div class="text-center h1 text-white bg-primary p-2"> Datos de la mascota</div>
+<div class="container">
+    {% from "_plantilladeayuda.html" import render_field %}
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <!-- {% include "_mensajes.html"%} -->
+            {% if actualizarsexo %}
+            <h1 class="text-center">Ingrese el sexo de la mascota</h1>
+            <form action="" method="POST" class="text-center">
+                <input type="text" name="sexo" class="form-control" value="{{actualizarsexo.sexo_m}}"
+                    placeholder="Ingrese el sexo">
+                <input type="submit" value=" Actualizar sexo" class="btn btn-info" style="margin-top: 3px;">
+                <a href="{{url_for('sexos')}}" class="btn btn-warning"
+                    style=" margin-left: 20px; margin-top: 3px;">Cancelar</a>
+            </form>
+
+            {% else %}
+            {% if actualizartipo %}
+            <h1 class="text-center">Ingrese el Tipo de mascota para agregarlos a la BD</h1>
+            <form action="" method="POST" class="text-center">
+                <input type="text" name="tipo" class="form-control" value="{{actualizartipo.tipo_m}}" placeholder="Ingrese el tipo de mascota">
+                <input type="submit" value=" Actualizar el tipo de mascota" class="btn btn-info">
+                <a href="{{url_for('tipos')}}" class="btn btn-warning"
+                style=" margin-left: 20px; margin-top: 3px;">Cancelar</a>
+            </form>
+            {% else %}
+            {% if actualizarubicacion %}
+            <h1 class="text-center">Ingrese la ubicacion de lugares para agregarlos a la BD</h1>
+            <form action="" method="POST" class="text-center">
+                <input type="text" name="ubicacion" class="form-control" value="{{actualizarubicacion.ubicacion_m}}"
+                    placeholder="Ingrese la ubicación">
+                <input type="submit" value=" Actualizar la ubicacion" class="btn btn-info" style="margin-top: 3px;">
+                <a href="{{url_for('ubicaciones')}}" class="btn btn-warning"
+                    style=" margin-left: 20px; margin-top: 3px;">Cancelar</a>
+            </form>
+            {% else %}
+            {% if actualizarestado %}
+            <h1 class="text-center">Ingrese el estado de la mascota para agregarlos a la BD</h1>
+            <form action="" method="POST" class="text-center">
+                <input type="text" name="estado" class="form-control" value="{{actualizarestado.estado_m}}"  placeholder="Ingrese el estado">
+                <input type="submit" value=" Actualizar el estado" class="btn btn-info">
+                <a href="{{url_for('estados')}}" class="btn btn-warning"
+                style=" margin-left: 20px; margin-top: 3px;">Cancelar</a>
+            </form>
+            {% endif %}
+            {% endif %}
+            {% endif %}
+            {% endif %}
+
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+    <head>
+        <!-- Basic -->
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <!-- Mobile Metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <!-- Site Metas -->
+        <meta name="keywords" content="" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+    
+        <title>Petology</title>
+    
+        <!-- slider stylesheet -->
+        <link rel="stylesheet" type="text/css"
+            href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
+    
+        <!-- bootstrap core css -->
+        <link rel="stylesheet" type="text/css" href="../static/nosotros/css/bootstrap.css" />
+    
+        <!-- fonts style -->
+        <link href="https://fonts.googleapis.com/css?family=Dosis:400,500|Poppins:400,700&display=swap" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="../static/nosotros/css/style.css" rel="stylesheet" />
+        <!-- responsive style -->
+        <link href="../static/nosotros/css/responsive.css" rel="stylesheet" />
+    </head>
+    <!-- info section -->
+    
+    
+    <!-- footer section -->
+    <section class="container-fluid footer_section">
+        <p>
+            &copy; 2023 All Rights Reserved By
+            <a href="{{url_for('home')}}">Mathew Avilés</a>
+        </p>
+    </section>
+    <!-- footer section -->
+    {% endblock content %}

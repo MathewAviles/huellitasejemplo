@@ -1,0 +1,210 @@
+{% extends 'layout.html' %}
+{% block content %}
+<!-- ---------------------NAVBAR --------------  -->
+<div class="container1" style="background-color: #1b3039;">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/" style="color: white;">Inicio</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/mascotas/allmascotas" style="color: white;">Mascotas</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="color: white;">
+                            Sexo
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% for sexo in sexom%}
+                            <li><a class="dropdown-item" href="{{url_for('get_sexo', id=sexo.id)}}"
+                                    >{{sexo.sexo_m}}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="color: white;">
+                            Tipo
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% for tipo in tipom%}
+                            <li><a class="dropdown-item" href="{{url_for('get_tipo', id=tipo.id)}}"
+                                    >{{tipo.tipo_m}}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown" >
+                        
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="color: white;">
+                            Estado
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% for estado in estadom%}
+                            <li><a class="dropdown-item"
+                                    href="{{url_for('get_estado', id=estado.id)}}">{{estado.estado_m}}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="color: white;">
+                            Reconoceimineto de mascota
+                        </a>
+                        <ul class="dropdown-menu">
+
+                            <li><a class="dropdown-item" href="{{url_for('informacion')}}">Información</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('reconocimiento')}}">Reconocimiento con Cámara</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('reconocimientoimg')}}">Reconocimiento con Imágenes</a></li>
+
+                        </ul>
+                    </li>
+
+                </ul>
+                <form class="d-flex" role="search" action="{{url_for('result')}}">
+                    <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" name="q">
+                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</div>
+<!-- ---------------------FIN NAVBAR ---------------->
+{% include '_mensajes.html' %}
+<body style="background-color:aliceblue">
+    <div class="container">
+        <div class="row">
+            {% if estado %}
+            {% for t in estado %}
+            <div class="col-md-3 mt-3">
+                <div class="card">
+                    <img src="{{url_for('static', filename='images/'+ t.image_1)}}" alt="{{t.nombre}}" class="card-img-top"
+                        height="300">
+                    <div class="card-body">
+                        <h5 class="text-center">{{t.nombre}}</h5>
+                        <p class="text-center">Ubicación: {{t.ubicacion.ubicacion_m}}</p>
+                        <p class="text-center">Estado: {{t.estado.estado_m}}</p>
+                        <p class="text-center">Sexo: {{t.sexo.sexo_m}}</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="{{url_for('single_page' , id=t.id)}}" class="btn  btn-sm btn-primary ">Detalles de la mascota</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+    
+            {% else %}
+            {% if sexo %}
+            {% for s in sexo %}
+            <div class="col-md-3 mt-3">
+                <div class="card">
+                    <img src="{{url_for('static', filename='images/'+ s.image_1)}}" alt="{{s.nombre}}" class="card-img-top"
+                        height="300">
+                    <div class="card-body">
+                        <h5 class="text-center">{{s.nombre}}</h5>
+                        <p class="text-center">Ubicación: {{s.ubicacion.ubicacion_m}}</p>
+                        <p class="text-center">Estado: {{s.estado.estado_m}}</p>
+                        <p class="text-center">Sexo: {{s.sexo.sexo_m}}</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="{{url_for('single_page' , id=s.id)}}" class="btn  btn-sm btn-primary ">Detalles de la mascota</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+    
+    
+            {% else %}
+            {% if tipo %}
+            {% for t in tipo %}
+            <div class="col-md-3 mt-3">
+                <div class="card">
+                    <img src="{{url_for('static', filename='images/'+ t.image_1)}}" alt="{{t.nombre}}" class="card-img-top"
+                        height="300">
+                    <div class="card-body">
+                        <h5 class="text-center">{{t.nombre}}</h5>
+                        <p class="text-center">Ubicación: {{t.ubicacion.ubicacion_m}}</p>
+                        <p class="text-center">Estado: {{t.estado.estado_m}}</p>
+                        <p class="text-center">Sexo: {{t.sexo.sexo_m}}</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="{{url_for('single_page' , id=t.id)}}" class="btn  btn-sm btn-primary ">Detalles de la mascota</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+    
+    
+            {% else %}
+    
+            {% for mascota in mascotas %}
+            <div class="col-md-3 mt-3">
+                <div class="card">
+                    <img src="{{url_for('static', filename='images/'+ mascota.image_1)}}" alt="{{mascota.nombre}}"
+                        class="card-img-top" height="300">
+                    <div class="card-body">
+                        <h5 class="text-center">{{mascota.nombre}}</h5>
+                        <p class="text-center">Ubicación: {{mascota.ubicacion.ubicacion_m}}</p>
+                        <p class="text-center">Estado: {{mascota.estado.estado_m}}</p>
+                        <p class="text-center">Sexo: {{mascota.sexo.sexo_m}}</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="{{url_for('single_page' , id=mascota.id)}}" class="btn  btn-sm btn-primary ">Detalles de la mascota</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</body>
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Petology</title>
+
+    <!-- slider stylesheet -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
+
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="../static/nosotros/css/bootstrap.css" />
+
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css?family=Dosis:400,500|Poppins:400,700&display=swap" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="../static/nosotros/css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="../static/nosotros/css/responsive.css" rel="stylesheet" />
+</head>
+<!-- info section -->
+
+
+<!-- footer section -->
+<section class="container-fluid footer_section">
+    <p>
+        &copy; 2023 All Rights Reserved By
+        <a href="{{url_for('home')}}">Mathew Avilés</a>
+    </p>
+</section>
+<!-- footer section -->
+{% endblock content %}

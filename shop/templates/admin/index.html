@@ -1,0 +1,166 @@
+{% extends 'layout1.html'%}
+
+{% block content %}
+
+{% include '_mensajes.html'%}
+<div class="container1" style="background-color: #1b3039;">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#" style="color: white;">Administrador</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownDatosMascota" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">
+                            Datos de la mascota
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownDatosMascota">
+                            <li><a class="dropdown-item" href="/sexos">Sexo</a></li>
+                            <li><a class="dropdown-item" href="/tipos">Tipo</a></li>
+                            <li><a class="dropdown-item" href="/ubicaciones">Ubicación</a></li>
+                            <li><a class="dropdown-item" href="/estados">Estado</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAnadirDatosMascota" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">
+                            Añadir datos mascota
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownAnadirDatosMascota">
+                            <li><a class="dropdown-item" href="/addsexo">Añadir sexo</a></li>
+                            <li><a class="dropdown-item" href="/addtipo">Añadir tipo</a></li>
+                            <li><a class="dropdown-item" href="/addubicacion">Añadir ubicación</a></li>
+                            <li><a class="dropdown-item" href="/addestado">Añadir estado</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/logout"
+                            style=" margin-left: 388px; margin-top: 0px; color: white;">Cerrar
+                            sesión</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+
+
+<body style="background-color: aliceblue">
+    <div class="container mt-5">
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Edad</th>
+                    <th>Tipo</th>
+                    <th>Estado</th>
+                    <th>Raza</th>
+                    <th>Imagen</th>
+                    <th>Borrar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for mascota in mascotas %}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td>{{mascota.nombre}}</td>
+                    <td>{{mascota.edad}}</td>
+                    <td>{{mascota.tipo.tipo_m}}</td>
+                    <td>{{mascota.estado.estado_m}}</td>
+                    <td>{{mascota.raza}}</td>
+                    <td><img src="{{url_for('static', filename='images/' + mascota.image_1)}}" width="80" height="80">
+                    </td>
+                    <td><a href="{{url_for('eliminarmascota', id=mascota.id)}}" class="btn bnt-danger"></a>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal-{{mascota.id}}">
+                            Eliminar
+                        </button>
+                    </td>
+                </tr>
+
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal-{{mascota.id}}" tabindex="-1"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">{{mascota.nombre}}</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="text-danger">Estas seguro que deseas eliminar esta mascota {{mascota.nombre}}
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-warning btn-sm"
+                                    data-bs-dismiss="modal">Cancelar</button>
+                                <form action="{{url_for('eliminarmascota', id=mascota.id)}}" method="POST">
+                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+
+
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Petology</title>
+
+    <!-- slider stylesheet -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
+
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="../static/nosotros/css/bootstrap.css" />
+
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css?family=Dosis:400,500|Poppins:400,700&display=swap" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="../static/nosotros/css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="../static/nosotros/css/responsive.css" rel="stylesheet" />
+</head>
+<!-- info section -->
+
+
+<!-- footer section -->
+<section class="container-fluid footer_section">
+    <p>
+        &copy; 2023 All Rights Reserved By
+        <a href="{{url_for('home')}}">Mathew Avilés</a>
+    </p>
+</section>
+<!-- footer section -->
+{% endblock content %}

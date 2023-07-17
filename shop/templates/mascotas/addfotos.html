@@ -1,0 +1,144 @@
+
+{% extends 'layout.html' %}
+{% block content %}
+{% include '_mensajes.html' %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dropzone@5.9.2/dist/dropzone.css">
+<script src="https://cdn.jsdelivr.net/npm/dropzone@5.9.2/dist/dropzone.js"></script>
+<link rel="stylesheet" type="text/css"
+href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
+
+<!-- bootstrap core css -->
+<link rel="stylesheet" type="text/css" href="../static/nosotros/css/bootstrap.css" />
+
+<!-- fonts style -->
+<link href="https://fonts.googleapis.com/css?family=Dosis:400,500|Poppins:400,700&display=swap"
+rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="../static/nosotros/css/style.css" rel="stylesheet" />
+<!-- responsive style -->
+<link href="../static/nosotros/css/responsive.css" rel="stylesheet" />
+
+
+
+
+<!-- ---------------------NAVBAR --------------  -->
+<div class="container1" style="background-color: #1b3039;">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/" style="color: white;">Inicio</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/mascotas/allmascotas" style="color: white;">Mascotas</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="color: white;">
+                            Sexo
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% for sexo in sexom%}
+                            <li><a class="dropdown-item" href="{{url_for('get_sexo', id=sexo.id)}}">{{sexo.sexo_m}}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="color: white;">
+                            Tipo
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% for tipo in tipom%}
+                            <li><a class="dropdown-item" href="{{url_for('get_tipo', id=tipo.id)}}">{{tipo.tipo_m}}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="color: white;">
+                            Estado
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% for estado in estadom%}
+                            <li><a class="dropdown-item"
+                                    href="{{url_for('get_estado', id=estado.id)}}">{{estado.estado_m}}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="color: white;">
+                            Reconocimineto de mascota
+                        </a>
+                        <ul class="dropdown-menu">
+
+                            <li><a class="dropdown-item" href="{{url_for('informacion')}}">Información</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('reconocimiento')}}">Reconocimiento con Cámara</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{{url_for('reconocimientoimg')}}">Reconocimiento con
+                                    Imágenes</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('addfotos')}}">Formulario Reconocimiento</a></li>
+
+
+                        </ul>
+                    </li>
+
+                </ul>
+                <form class="d-flex" role="search" action="{{url_for('result')}}">
+                    <input id="barra-busqueda" class="form-control me-2" type="search" placeholder="Buscar"
+                        aria-label="Search" name="q" value="">
+                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</div>
+<!-- ---------------------FIN NAVBAR ---------------->
+
+
+<center style="background-color: #1b3039;">
+    <div class="container" style="background-color: aliceblue; width: 700px;height: 650px;  border-radius: 15px;">
+        <div class="col-md-2"></div>
+        <div class="col-md-12">
+            <br>
+            <h2 class="text-center" style="background-color: #1b3039; color: white;">Añadir imágenes de mascota</h2>
+            <form action="" method="POST" enctype="multipart/form-data">
+                <label for="mascota" style="font-weight: bold;">Seleccione la mascota:</label>
+                <select name="mascota" id="mascota" class="form-control">
+                    <option value="">Seleccione una mascota</option>
+                    {% for mascota in mascotas %}
+                    <option value="{{ mascota.id }}">{{ mascota.nombre }}</option>
+                    {% endfor %}
+                </select>
+            
+                <div class="form-group">
+                    <label for="images">Seleccione las imágenes:</label>
+                    <p>Máximo 50 fotos</p>
+                    <input type="file" name="images" id="images" class="form-control" accept="image/*" multiple required>
+                </div>
+            
+                
+                <button type="submit" class="btn btn-outline-info mt-4">Añadir imágenes</button>
+            </form>
+
+            
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</center>
+
+<!-- Resto del código HTML -->
+
+
+
+{% endblock content %}

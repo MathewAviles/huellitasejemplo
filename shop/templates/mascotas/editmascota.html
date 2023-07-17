@@ -1,0 +1,192 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<center style="background-color: #1b3039;">
+    <div class="container" style="background-color: aliceblue; width: 700px; border-radius: 15px;">
+
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <br>
+            <h2 class="text-center" style="background-color: #1b3039; color: white;">Actualizar Mascota</h2>
+            <form action="{{ url_for('editmascota', id=mascota.id) }}" method="POST" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" value="{{ mascota.nombre }}"
+                        required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="sexo" class="form-label">Sexo</label>
+                    <select class="form-select" id="sexo" name="sexo" required>
+                        {% for sexo in sexos %}
+                        <option value="{{ sexo.id }}" {% if mascota.sexo_id==sexo.id %}selected{% endif %}>{{
+                            sexo.sexo_m }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="tipo" class="form-label">Tipo</label>
+                    <select class="form-select" id="tipo" name="tipo" required>
+                        {% for tipo in tipos %}
+                        <option value="{{ tipo.id }}" {% if mascota.tipo_id==tipo.id %}selected{% endif %}>{{
+                            tipo.tipo_m }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="ubicacion" class="form-label">Ubicación</label>
+                    <select class="form-select" id="ubicacion" name="ubicacion" required>
+                        {% for ubicacion in ubicaciones %}
+                        <option value="{{ ubicacion.id }}" {% if mascota.ubicacion_id==ubicacion.id %}selected{% endif
+                            %}>{{ ubicacion.ubicacion_m }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="estado" class="form-label">Estado</label>
+                    <select class="form-select" id="estado" name="estado" required>
+                        {% for estado in estados %}
+                        <option value="{{ estado.id }}" {% if mascota.estado_id==estado.id %}selected{% endif %}>{{
+                            estado.estado_m }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                
+                <div class="mb-3">
+                    <label for="raza" class="form-label">Raza</label>
+                    <input type="text" class="form-control" id="raza" name="raza" value="{{ mascota.raza }}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="edad" class="form-label">Edad</label>
+                    <input type="number" class="form-control" id="edad" name="edad" value="{{ mascota.edad }}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="direccion" class="form-label">Dirección</label>
+                    <input type="text" class="form-control" id="direccion" name="direccion"
+                        value="{{ mascota.direccion }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="contacto" class="form-label">Contacto</label>
+                    <input type="text" class="form-control" id="contacto" name="contacto" value="{{ mascota.contacto }}"
+                        required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label">Descripción</label>
+                    <textarea class="form-control" id="descripcion" name="descripcion" rows="3"
+                        required>{{ mascota.descripcion }}</textarea>
+                </div>
+
+                
+
+                <div class="mb-3">
+                    <label for="image_1" class="form-label">Imagen 1</label>
+                    <input class="form-control" type="file" id="image_1" name="image_1">
+                </div>
+
+                <div class="mb-3">
+                    <label for="image_2" class="form-label">Imagen 2</label>
+                    <input class="form-control" type="file" id="image_2" name="image_2">
+                </div>
+
+                <div class="mb-3">
+                    <label for="image_3" class="form-label">Imagen 3</label>
+                    <input class="form-control" type="file" id="image_3" name="image_3">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Actualizar</button>
+
+
+                {% for mascota in mascotas %}
+                <tr>
+                    <td><a href="{{url_for('eliminarmascota', id=mascota.id)}}" class="btn bnt-danger"></a>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal-{{mascota.id}}">
+                            Eliminar
+                        </button>
+                    </td>
+                </tr>
+
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal-{{mascota.id}}" tabindex="-1"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">{{mascota.nombre}}</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="text-danger">Estas seguro que deseas eliminar esta mascota {{mascota.nombre}}
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-warning btn-sm"
+                                    data-bs-dismiss="modal">Cancelar</button>
+                                <form action="{{url_for('eliminarmascota', id=mascota.id)}}" method="POST">
+                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                {% endfor %}
+
+            </form>
+            <br>
+        </div>
+    </div>
+</center>
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Petology</title>
+
+    <!-- slider stylesheet -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
+
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="../static/nosotros/css/bootstrap.css" />
+
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css?family=Dosis:400,500|Poppins:400,700&display=swap" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="../static/nosotros/css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="../static/nosotros/css/responsive.css" rel="stylesheet" />
+</head>
+<!-- info section -->
+
+
+<!-- footer section -->
+<section class="container-fluid footer_section">
+    <p>
+        &copy; 2023 All Rights Reserved By
+        <a href="{{url_for('home')}}">Mathew Avilés</a>
+    </p>
+</section>
+<!-- footer section -->
+{% endblock %}

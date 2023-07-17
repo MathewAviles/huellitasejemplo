@@ -1,0 +1,194 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% include '_mensajes.html' %}
+
+<!-- ---------------------NAVBAR --------------  -->
+<div class="container1" style="background-color: #1b3039;">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/" style="color: white;">Inicio</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/mascotas/allmascotas" style="color: white;">Mascotas</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="color: white;">
+                            Sexo
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% for sexo in sexom%}
+                            <li><a class="dropdown-item" href="{{url_for('get_sexo', id=sexo.id)}}">{{sexo.sexo_m}}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="color: white;">
+                            Tipo
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% for tipo in tipom%}
+                            <li><a class="dropdown-item" href="{{url_for('get_tipo', id=tipo.id)}}">{{tipo.tipo_m}}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="color: white;">
+                            Estado
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% for estado in estadom%}
+                            <li><a class="dropdown-item"
+                                    href="{{url_for('get_estado', id=estado.id)}}">{{estado.estado_m}}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="color: white;">
+                            Reconocimineto de mascota
+                        </a>
+                        <ul class="dropdown-menu">
+
+                            <li><a class="dropdown-item" href="{{url_for('informacion')}}">Información</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('reconocimiento')}}">Reconocimiento con Cámara</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('reconocimientoimg')}}">Reconocimiento con Imágenes</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('addfotos')}}">Formulario Reconocimiento</a></li>
+
+                        </ul>
+                    </li>
+
+                </ul>
+                <form class="d-flex" role="search" action="{{url_for('result')}}">
+                    <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" name="q">
+                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</div>
+<!-- ---------------------FIN NAVBAR ---------------->
+
+<center style="background-color: #1b3039;">
+    <div class="container" style="background-color: aliceblue; width: 700px; border-radius: 15px;">
+    
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <br>
+            <h2 class="text-center" style="background-color: #1b3039; color: white;"> Añade a tu mascota </h2>
+            {% from "_plantilladeayuda.html" import render_field %}
+            <form action="" method="POST" enctype="multipart/form-data">
+    
+    
+                <label for="tipo" style="font-weight: bold;">Seleccione la especie de mascota</label>
+                <select name="tipo" id="tipo" class="form-control">
+                    <option value="">Seleccione una especie</option>
+                    {% for tipo in tipos %}
+                    <option value="{{tipo.id}}">{{tipo.tipo_m}}</option>
+                    {% endfor %}
+                </select>
+    
+                {{render_field(form.nombre, class="form-control" , placeholder="Ingrese el nombre de su mascota")}}
+                {{render_field(form.edad, class="form-control" , placeholder="Ingrese la edad se su mascota")}}
+                {{render_field(form.raza, class="form-control" , placeholder="Ingrese la raza se su mascota")}}
+    
+                <label for="sexo" style="font-weight: bold;">Seleccione el sexo de su mascota</label>
+                <select name="sexo" id="sexo" class="form-control">
+                    <option value="">Seleccione un sexo</option>
+                    {% for sexo in sexos %}
+                    <option value="{{sexo.id}}">{{sexo.sexo_m}}</option>
+                    {% endfor %}
+                </select>
+    
+    
+                <label for="estado" style="font-weight: bold;">Seleccione el estado de la mascota</label>
+                <select name="estado" id="estado" class="form-control">
+                    <option value="">Seleccione un estado</option>
+                    {% for estado in estados %}
+                    <option value="{{estado.id}}">{{estado.estado_m}}</option>
+                    {% endfor %}
+                </select>
+    
+    
+                <label for="ubicacion" style="font-weight: bold;">Seleccione la ubicación de su mascota</label>
+                <select name="ubicacion" id="ubicacion" class="form-control">
+                    <option value="">Seleccione una ubicación</option>
+                    {% for ubicacion in ubicaciones %}
+                    <option value="{{ubicacion.id}}">{{ubicacion.ubicacion_m}}</option>
+                    {% endfor %}
+                </select>
+    
+                {{render_field(form.contacto, class="form-control" , placeholder="Ingrese su número para contactarlo")}}
+                {{render_field(form.direccion, class="form-control" , placeholder="Ingrese la direccion donde se perdió su mascota")}}
+                {{render_field(form.fecha, class="form-control" , placeholder="Ingrese la fecha cuando se perdió su mascota")}}
+                {{render_field(form.descripcion, class="form-control" , placeholder="Ingrese la descripción física de su mascota",
+                rows = "10")}}
+    
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">{{ render_field(form.image_1, class="form-control")}}</div>
+                        <div class="col-md-4">{{ render_field(form.image_2, class="form-control")}}</div>
+                        <div class="col-md-4">{{ render_field(form.image_3, class="form-control")}}</div>
+                    </div>
+                </div>
+    
+                <button type="submit" class="btn btn-outline-info mt-4">Añadir mascota</button>
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</center>
+
+
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Petology</title>
+
+    <!-- slider stylesheet -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
+
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="../static/nosotros/css/bootstrap.css" />
+
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css?family=Dosis:400,500|Poppins:400,700&display=swap" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="../static/nosotros/css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="../static/nosotros/css/responsive.css" rel="stylesheet" />
+</head>
+<!-- info section -->
+
+
+<!-- footer section -->
+<section class="container-fluid footer_section">
+    <p>
+        &copy; 2023 All Rights Reserved By
+        <a href="{{url_for('home')}}">Mathew Avilés</a>
+    </p>
+</section>
+<!-- footer section -->
+{% endblock content %}

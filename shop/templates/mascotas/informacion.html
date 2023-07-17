@@ -1,0 +1,185 @@
+{% extends 'layout.html' %}
+{% block content %}
+<!-- ---------------------NAVBAR --------------  -->
+<div class="container1" style="background-color: #1b3039;">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/" style="color: white;">Inicio</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/mascotas/allmascotas" style="color: white;">Mascotas</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="color: white;">
+                            Sexo
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% for sexo in sexom%}
+                            <li><a class="dropdown-item" href="{{url_for('get_sexo', id=sexo.id)}}">{{sexo.sexo_m}}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="color: white;">
+                            Tipo
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% for tipo in tipom%}
+                            <li><a class="dropdown-item" href="{{url_for('get_tipo', id=tipo.id)}}">{{tipo.tipo_m}}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="color: white;">
+                            Estado
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% for estado in estadom%}
+                            <li><a class="dropdown-item"
+                                    href="{{url_for('get_estado', id=estado.id)}}">{{estado.estado_m}}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" style="color: white;">
+                            Reconoceimineto de mascota
+                        </a>
+                        <ul class="dropdown-menu">
+
+                            <li><a class="dropdown-item" href="{{url_for('informacion')}}">Información</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('reconocimiento')}}">Reconocimiento con Cámara</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('reconocimientoimg')}}">Reconocimiento con Imágenes</a></li>
+                            <li><a class="dropdown-item" href="{{url_for('addfotos')}}">Formulario Reconocimiento</a></li>
+
+                        </ul>
+                    </li>
+
+                </ul>
+                <form class="d-flex" role="search" action="{{url_for('result')}}">
+                    <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" name="q">
+                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</div>
+<!-- ---------------------FIN NAVBAR ---------------->
+
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Petology</title>
+
+    <!-- slider stylesheet -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
+
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="../static/nosotros/css/bootstrap.css" />
+
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css?family=Dosis:400,500|Poppins:400,700&display=swap" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="../static/nosotros/css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="../static/nosotros/css/responsive.css" rel="stylesheet" />
+</head>
+
+<div class="carousel-container">
+    <div class="card">
+        <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active" style="background-image: url(../static/images/VITAFARM\ BANNER.jpg);"
+                    data-bs-interval="5000">
+                    <div class="carousel-caption d-none d-md-block">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="container">
+    <section class="about_section layout_padding">
+        <div class="container">
+            <div class="row d-flex align-items-center">
+                <div class="col-md-6">
+                    <style>
+                        .justificado {
+                            text-align: justify;
+                        }
+                    </style>
+                    <div class="img-box" >
+                        <video src="../../static/images/Huellitas demo.mp4" controls width="550" height="500"></video>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="detail-box">
+                        <h2 class="custom_heading">
+                            Guia
+                            <span>
+                                Uso
+                            </span>
+                        </h2>
+                        <p class="justificado">
+                            En la página principal, haz clic en el botón "Iniciar" para acceder a la funcionalidad de
+                            reconocimiento de mascotas.
+
+                            Otorgar permisos de cámara para que nuestra aplicación pueda utilizar tu cámara, se te
+                            solicitará otorgar permisos de acceso. Asegúrate de hacer clic en "Permitir" para que
+                            podamos acceder a la cámara de tu dispositivo.
+
+                            Enfocar a tu mascota ,una vez que hayas otorgado los permisos, se abrirá una ventana de
+                            cámara. Asegúrate de tener a tu mascota cerca y en un lugar bien iluminado. Apunta la cámara
+                            hacia tu mascota y asegúrate de que esté enfocada correctamente.
+
+                            Después de enfocar a tu mascota, nuestra aplicación procesará la imagen y analizará los
+                            rasgos distintivos para identificar la especie o raza. Este proceso solo tomará unos
+                            segundos.
+                            Una vez que se complete el análisis, se mostrará en pantalla el nombre de la mascota reconocida si es que se encuentra registrada en nuestra base de datos
+                        </p>
+                        <div>
+                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<!-- footer section -->
+<section class="container-fluid footer_section">
+    <p>
+        &copy; 2023 All Rights Reserved By
+        <a href="{{url_for('home')}}">Mathew Avilés</a>
+    </p>
+</section>
+<!-- footer section -->
+
+{% endblock %}

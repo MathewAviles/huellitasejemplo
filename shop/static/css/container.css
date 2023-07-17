@@ -1,0 +1,13 @@
+.container {
+    /* Ajusta el tamaño y otros estilos según sea necesario */
+    width: 100%;
+    height: 100vh; /* Para centrarlo verticalmente también */
+    margin-top: auto; /* Margen vertical */
+  margin-bottom: auto; /* Margen vertical */
+  margin-left: 35%; /* Margen horizontal */
+  margin-right: auto;
+
+
+    justify-content: center;
+    align-items: center;
+  }

@@ -1,0 +1,83 @@
+{% extends "layout.html"%}
+
+{% block content %}
+{% from "_plantilladeayuda.html" import render_field %}
+{% include '_mensajes.html'%} 
+<div class="container">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Inicio de Sesión</title>
+            <link rel="stylesheet" href="../../static/css/styles2.css">
+        </head>
+        <body>
+            <div class="container">
+                <div class="login-form">
+                    <h1 class="text-center">Inicio de Sesión</h1>
+
+                    <div class="image-container">
+                        <img src="../../static/images/logo.png" style="width: 300px; height: 200px;" alt="Imagen de fondo">
+                    </div>
+
+                    <form method='POST' enctype="multipart/form-data">
+                        {{form.csrf_token}}
+                        <div>
+                            {{ render_field(form.email, class="form-control") }}
+                            {{ render_field(form.password, class="form-control") }}
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                        </div>
+                        <div class="form-group">
+                        <a type="button" href="{{url_for('user_registro')}}" class="btn btn-primary">Registrate</a>
+                        <br><br><br><br>
+                        <a type="button" href="{{url_for('reset_password')}}" class="btn btn-info">Olvidé mi contraseña</a>
+
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        </body>
+</div> 
+
+
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Petology</title>
+
+    <!-- slider stylesheet -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
+
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="../static/nosotros/css/bootstrap.css" />
+
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css?family=Dosis:400,500|Poppins:400,700&display=swap" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="../static/nosotros/css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="../static/nosotros/css/responsive.css" rel="stylesheet" />
+</head>
+<!-- info section -->
+
+
+<!-- footer section -->
+<section class="container-fluid footer_section">
+    <p>
+        &copy; 2023 All Rights Reserved By
+        <a href="{{url_for('home')}}">Mathew Avilés</a>
+    </p>
+</section>
+<!-- footer section -->
+{% endblock content %}
